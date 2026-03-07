@@ -1,0 +1,86 @@
+<div class="form-page container">
+
+  <!-- Header -->
+  <div class="form-header">
+    <a routerLink="/books" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back
+    </a>
+    <div>
+      <h1 class="form-title">{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h1>
+      <p class="form-subtitle">{{ isEditMode ? 'Update the details below' : 'Fill in the details to list a new book' }}</p>
+    </div>
+  </div>
+
+  <div class="form-layout">
+    <!-- Form -->
+    <div class="form-card">
+      <form (ngSubmit)="onSubmit()" #bookForm="ngForm">
+
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="title">Title <span class="req">*</span></label>
+            <input id="title" name="title" [(ngModel)]="formData.title" required
+              placeholder="e.g. Clean Code" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="author">Author <span class="req">*</span></label>
+            <select id="author" name="authorId" [(ngModel)]="formData.authorId" required class="form-control">
+              <option [value]="0" disabled>Select author</option>
+              <option *ngFor="let a of authors" [value]="a.id">{{ a.name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category <span class="req">*</span></label>
+            <select id="category" name="categoryId" [(ngModel)]="formData.categoryId" required class="form-control">
+              <option [value]="0" disabled>Select category</option>
+              <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="isbn">ISBN <span class="req">*</span></label>
+            <input id="isbn" name="isbn" [(ngModel)]="formData.isbn" required
+              placeholder="e.g. 978-0-13-468599-1" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="price">Price ($) <span class="req">*</span></label>
+            <div class="input-prefix">
+              <span class="prefix">$</span>
+              <input id="price" name="price" type="number" min="0" step="0.01"
+                [(ngModel)]="formData.price" required placeholder="0.00" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="stock">Stock <span class="req">*</span></label>
+            <input id="stock" name="stock" type="number" min="0"
+              [(ngModel)]="formData.stock" required placeholder="0" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="publishedDate">Published Date <span class="req">*</span></label>
+            <input id="publishedDate" name="publishedDate" type="date"
+              [(ngModel)]="formData.publishedDate" required class="form-control">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" [(ngModel)]="formData.description"
+              rows="4" placeholder="What is this book about?" class="form-control"></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a routerLink="/books" class="btn btn-ghost">Cancel</a>
+          <button type="submit" [disabled]="bookForm.invalid" class="btn btn-primary btn-lg">
+            <i class="fas" [class.fa-plus]="!isEditMode" [class.fa-check]="isEditMode"></i>
+            {{ isEditMode ? 'Save Changes' : 'Add Book' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
