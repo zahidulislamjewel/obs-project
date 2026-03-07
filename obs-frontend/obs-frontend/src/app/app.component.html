@@ -1,0 +1,46 @@
+<header class="navbar">
+  <div class="navbar-inner container">
+    <a routerLink="/books" class="brand">
+      <span class="brand-icon"><i class="fas fa-book-open"></i></span>
+      <span class="brand-text">Book<em>Shelf</em></span>
+    </a>
+
+    <nav class="nav-links">
+      <a routerLink="/books" class="nav-link">Browse</a>
+      <a routerLink="/books/new" class="nav-link">Sell a Book</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a routerLink="/books/new" class="btn btn-accent btn-sm">
+        <i class="fas fa-plus"></i> Add Book
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner container">
+    <div class="footer-brand">
+      <span class="brand-text">Book<em>Shelf</em></span>
+      <p>Your curated online bookstore for developers, engineers, and lifelong learners.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Browse</h4>
+      <a routerLink="/books">All Books</a>
+      <a routerLink="/books/new">Add Book</a>
+    </div>
+    <div class="footer-links">
+      <h4>Categories</h4>
+      <a routerLink="/books">Programming</a>
+      <a routerLink="/books">Web Development</a>
+      <a routerLink="/books">Algorithms</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 BookShelf. Built with Angular &amp; Docker.</span>
+  </div>
+</footer>

@@ -1,0 +1,12 @@
+services:
+  obs-frontend:
+    build:
+      context: ./obs-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./obs-frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
