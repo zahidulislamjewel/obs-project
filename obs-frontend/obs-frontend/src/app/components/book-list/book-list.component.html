@@ -1,0 +1,79 @@
+<!-- ── Hero Banner ── -->
+<section class="hero">
+  <div class="hero-inner container">
+    <div class="hero-text">
+      <p class="hero-eyebrow"><i class="fas fa-bolt"></i> Curated for developers</p>
+      <h1 class="hero-title">Discover Your Next<br><em>Great Read</em></h1>
+      <p class="hero-desc">Hand-picked programming, engineering, and computer science books to level up your career.</p>
+      <div class="hero-cta">
+        <a routerLink="/books/new" class="btn btn-accent btn-lg">
+          <i class="fas fa-plus"></i> Add a Book
+        </a>
+        <span class="hero-stat"><strong>{{ allBooks.length }}</strong> books available</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Category Filters ── -->
+<section class="filters-section container">
+  <div class="filters-row">
+    <button
+      *ngFor="let cat of categoryNames"
+      class="filter-btn"
+      [class.active]="activeCategory === cat"
+      (click)="filterByCategory(cat)">
+      {{ cat }}
+    </button>
+  </div>
+  <p class="results-count">
+    {{ filteredBooks.length }} book{{ filteredBooks.length !== 1 ? 's' : '' }}
+    <span *ngIf="activeCategory !== 'All'"> in <strong>{{ activeCategory }}</strong></span>
+  </p>
+</section>
+
+<!-- ── Books Grid ── -->
+<section class="books-section container">
+  <div class="books-grid">
+    <article
+      class="book-card fade-in-up"
+      *ngFor="let book of filteredBooks; let i = index"
+      [style.animation-delay]="(i * 0.05) + 's'"
+      [routerLink]="['/books', book.id]">
+
+      <!-- Info -->
+      <div class="card-info">
+        <span class="card-category">{{ book.categoryName }}</span>
+        <h3 class="card-title">{{ book.title }}</h3>
+        <p class="card-author">{{ book.authorName }}</p>
+        <div class="card-price-row">
+          <span class="card-price">\${{ book.price | number:'1.2-2' }}</span>
+        </div>
+        <div class="card-stock" [class.low-stock]="book.stock <= 5">
+          <i class="fas fa-circle" style="font-size:7px"></i>
+          {{ book.stock > 5 ? 'In Stock' : book.stock + ' left' }}
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="card-overlay">
+        <a [routerLink]="['/books', book.id]" class="btn btn-primary btn-sm" (click)="$event.stopPropagation()">
+          <i class="fas fa-eye"></i> View
+        </a>
+        <a [routerLink]="['/books/edit', book.id]" class="btn btn-ghost btn-sm" (click)="$event.stopPropagation()">
+          <i class="fas fa-edit"></i>
+        </a>
+        <button class="btn btn-danger btn-sm" (click)="deleteBook(book.id, $event)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+
+    </article>
+  </div>
+
+  <div class="empty-state" *ngIf="filteredBooks.length === 0">
+    <i class="fas fa-book-open"></i>
+    <p>No books in this category yet.</p>
+    <a routerLink="/books/new" class="btn btn-primary">Add the first one</a>
+  </div>
+</section>
