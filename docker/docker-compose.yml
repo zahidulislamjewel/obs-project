@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: obs-postgres
+    environment:
+      POSTGRES_DB: obsdb
+      POSTGRES_USER: obsuser
+      POSTGRES_PASSWORD: obspass
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U obsuser -d obsdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - obs-network
+
+  backend:
+    build:
+      context: ../obs-backend
+      dockerfile: Dockerfile
+    container_name: obs-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/obsdb
+      SPRING_DATASOURCE_USERNAME: obsuser
+      SPRING_DATASOURCE_PASSWORD: obspass
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - obs-network
+
+  frontend:
+    build:
+      context: ../obs-frontend/obs-frontend
+      dockerfile: Dockerfile
+    container_name: obs-frontend
+    ports:
+      - "4200:4200"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend
+    networks:
+      - obs-network
+
+networks:
+  obs-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
