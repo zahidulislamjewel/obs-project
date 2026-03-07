@@ -1,6 +1,8 @@
 package com.obs.backend.service.impl;
 
+import com.obs.backend.dto.AuthorRequest;
 import com.obs.backend.dto.AuthorResponse;
+import com.obs.backend.entity.Author;
 import com.obs.backend.repository.AuthorRepository;
 import com.obs.backend.service.AuthorService;
 import org.springframework.stereotype.Service;
@@ -24,5 +26,15 @@ public class AuthorServiceImpl implements AuthorService {
                 .stream()
                 .map(AuthorResponse::from)
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public AuthorResponse createAuthor(AuthorRequest request) {
+        Author author = Author.builder()
+                .name(request.getName())
+                .bio(request.getBio())
+                .build();
+        return AuthorResponse.from(authorRepository.save(author));
     }
 }

@@ -25,10 +25,30 @@
 
           <div class="form-group">
             <label for="author">Author <span class="req">*</span></label>
-            <select id="author" name="authorId" [(ngModel)]="formData.authorId" required class="form-control">
-              <option [ngValue]="null" disabled>Select author</option>
-              <option *ngFor="let a of authors" [ngValue]="a.id">{{ a.name }}</option>
-            </select>
+            <div class="author-row">
+              <select id="author" name="authorId" [(ngModel)]="formData.authorId" required class="form-control">
+                <option [ngValue]="null" disabled>Select author</option>
+                <option *ngFor="let a of authors" [ngValue]="a.id">{{ a.name }}</option>
+              </select>
+              <button type="button" class="btn btn-ghost btn-sm author-add-btn" (click)="toggleAuthorForm()">
+                <i class="fas" [class.fa-plus]="!showAuthorForm" [class.fa-times]="showAuthorForm"></i>
+                {{ showAuthorForm ? 'Cancel' : 'New' }}
+              </button>
+            </div>
+
+            <div *ngIf="showAuthorForm" class="inline-author-form">
+              <div class="form-group">
+                <label>Name <span class="req">*</span></label>
+                <input name="newAuthorName" [(ngModel)]="newAuthorData.name" placeholder="Author name" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Bio</label>
+                <textarea name="newAuthorBio" [(ngModel)]="newAuthorData.bio" rows="2" placeholder="Short bio (optional)" class="form-control"></textarea>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" (click)="saveNewAuthor()">
+                <i class="fas fa-check"></i> Save Author
+              </button>
+            </div>
           </div>
 
           <div class="form-group">

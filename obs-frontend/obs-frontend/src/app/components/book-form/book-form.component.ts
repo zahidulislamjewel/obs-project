@@ -34,6 +34,9 @@ export class BookFormComponent implements OnInit {
   authors: Author[] = [];
   categories: Category[] = [];
 
+  showAuthorForm = false;
+  newAuthorData = { name: '', bio: '' };
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -63,6 +66,21 @@ export class BookFormComponent implements OnInit {
         };
       });
     }
+  }
+
+  toggleAuthorForm(): void {
+    this.showAuthorForm = !this.showAuthorForm;
+    this.newAuthorData = { name: '', bio: '' };
+  }
+
+  saveNewAuthor(): void {
+    if (!this.newAuthorData.name.trim()) return;
+    this.authorService.createAuthor(this.newAuthorData).subscribe(created => {
+      this.authors.push(created);
+      this.formData.authorId = created.id;
+      this.showAuthorForm = false;
+      this.newAuthorData = { name: '', bio: '' };
+    });
   }
 
   onSubmit(): void {

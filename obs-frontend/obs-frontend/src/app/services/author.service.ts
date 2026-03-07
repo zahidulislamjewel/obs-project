@@ -15,4 +15,8 @@ export class AuthorService {
   getAuthors(): Observable<Author[]> {
     return this.http.get<Author[]>(this.baseUrl);
   }
+
+  createAuthor(request: { name: string; bio: string }): Observable<Author> {
+    return this.http.post<Author>(this.baseUrl, request);
+  }
 }

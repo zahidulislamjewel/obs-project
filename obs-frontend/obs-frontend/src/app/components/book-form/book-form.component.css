@@ -156,6 +156,24 @@ select.form-control { cursor: pointer; }
 .preview-info p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
 .preview-info strong { font-size: 1rem; color: var(--text); }
 
+.author-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.author-row .form-control { flex: 1; }
+.author-add-btn { white-space: nowrap; }
+.inline-author-form {
+  margin-top: 12px;
+  padding: 16px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 @media (max-width: 768px) {
   .form-layout { grid-template-columns: 1fr; }
   .form-preview { display: none; }
