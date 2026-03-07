@@ -1,0 +1,70 @@
+<div class="detail-page container" *ngIf="book; else notFound">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <a routerLink="/books"><i class="fas fa-home"></i> Books</a>
+    <span class="sep">/</span>
+    <span>{{ book.title }}</span>
+  </nav>
+
+  <div class="detail-layout">
+    <!-- Right: Info -->
+    <div class="detail-info-col">
+      <span class="detail-category">{{ book.categoryName }}</span>
+      <h1 class="detail-title">{{ book.title }}</h1>
+      <p class="detail-author">by <strong>{{ book.authorName }}</strong></p>
+
+      <div class="detail-price-block">
+        <span class="detail-price">${{ book.price | number:'1.2-2' }}</span>
+      </div>
+
+      <div class="detail-meta-grid">
+        <div class="meta-item">
+          <span class="meta-label"><i class="fas fa-calendar-alt"></i> Published</span>
+          <span class="meta-val">{{ book.publishedDate | date:'mediumDate' }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><i class="fas fa-boxes"></i> Stock</span>
+          <span class="meta-val stock-badge" [class.low]="book.stock <= 5">
+            {{ book.stock > 5 ? 'In Stock (' + book.stock + ')' : book.stock + ' left — hurry!' }}
+          </span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><i class="fas fa-tag"></i> Category</span>
+          <span class="meta-val">{{ book.categoryName }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><i class="fas fa-barcode"></i> ISBN</span>
+          <span class="meta-val">{{ book.isbn }}</span>
+        </div>
+      </div>
+
+      <div class="detail-description">
+        <h3>About this book</h3>
+        <p>{{ book.description }}</p>
+      </div>
+
+      <div class="cover-actions">
+        <a [routerLink]="['/books/edit', book.id]" class="btn btn-primary" style="flex:1; justify-content:center">
+          <i class="fas fa-edit"></i> Edit Book
+        </a>
+        <button class="btn btn-danger btn-icon" (click)="deleteBook()" title="Delete">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+
+      <a routerLink="/books" class="btn btn-ghost">
+        <i class="fas fa-arrow-left"></i> Back to Browse
+      </a>
+    </div>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="not-found container">
+    <i class="fas fa-book-open"></i>
+    <h2>Book not found</h2>
+    <p>This book doesn't exist or may have been removed.</p>
+    <a routerLink="/books" class="btn btn-primary">Browse all books</a>
+  </div>
+</ng-template>
