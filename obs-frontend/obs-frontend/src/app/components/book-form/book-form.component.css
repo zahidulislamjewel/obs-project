@@ -156,6 +156,36 @@ select.form-control { cursor: pointer; }
 .preview-info p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
 .preview-info strong { font-size: 1rem; color: var(--text); }
 
+.multi-select-list {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text);
+  cursor: pointer;
+  letter-spacing: normal;
+  margin-bottom: 0;
+}
+.checkbox-item input[type="checkbox"] { width: 14px; height: 14px; cursor: pointer; }
+
+.no-options { font-size: 0.82rem; color: var(--text-light); margin: 4px 0; }
+
+.field-hint { font-size: 0.78rem; margin-top: 4px; margin-bottom: 0; }
+.req-hint { color: var(--accent); }
+
 .author-row {
   display: flex;
   gap: 8px;

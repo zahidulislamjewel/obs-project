@@ -19,7 +19,7 @@
 <section class="filters-section container">
   <div class="filters-row">
     <button
-      *ngFor="let cat of categoryNames"
+      *ngFor="let cat of filterCategories"
       class="filter-btn"
       [class.active]="activeCategory === cat"
       (click)="filterByCategory(cat)">
@@ -52,9 +52,9 @@
 
       <!-- Info -->
       <div class="card-info">
-        <span class="card-category">{{ book.categoryName }}</span>
+        <span class="card-category">{{ bookCategoryNames(book) }}</span>
         <h3 class="card-title">{{ book.title }}</h3>
-        <p class="card-author">{{ book.authorName }}</p>
+        <p class="card-author">{{ authorNames(book) }}</p>
         <div class="card-price-row">
           <span class="card-price">\${{ book.price | number:'1.2-2' }}</span>
         </div>

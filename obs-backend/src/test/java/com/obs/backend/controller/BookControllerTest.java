@@ -1,8 +1,10 @@
 package com.obs.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.obs.backend.dto.AuthorResponse;
 import com.obs.backend.dto.BookRequest;
 import com.obs.backend.dto.BookResponse;
+import com.obs.backend.dto.CategoryResponse;
 import com.obs.backend.service.BookService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,10 +53,8 @@ class BookControllerTest {
                 .price(new BigDecimal("12.99"))
                 .isbn("978-0451524935")
                 .publishedDate(LocalDate.of(1949, 6, 8))
-                .authorId(1L)
-                .authorName("George Orwell")
-                .categoryId(1L)
-                .categoryName("Fiction")
+                .authors(List.of(AuthorResponse.builder().id(1L).name("George Orwell").build()))
+                .categories(List.of(CategoryResponse.builder().id(1L).name("Fiction").build()))
                 .stock(100)
                 .build();
 
@@ -64,8 +64,8 @@ class BookControllerTest {
                 .price(new BigDecimal("12.99"))
                 .isbn("978-0451524935")
                 .publishedDate(LocalDate.of(1949, 6, 8))
-                .authorId(1L)
-                .categoryId(1L)
+                .authorIds(List.of(1L))
+                .categoryIds(List.of(1L))
                 .stock(100)
                 .build();
     }
@@ -89,7 +89,7 @@ class BookControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.title").value("1984"))
-                .andExpect(jsonPath("$.authorName").value("George Orwell"));
+                .andExpect(jsonPath("$.authors[0].name").value("George Orwell"));
     }
 
     @Test
@@ -115,10 +115,9 @@ class BookControllerTest {
     @Test
     void createBook_WithInvalidRequest_ShouldReturn400() throws Exception {
         BookRequest invalidRequest = BookRequest.builder()
-                .title("") // blank title
-                .price(new BigDecimal("-1.00")) // negative price
-                .authorId(1L)
-                .categoryId(1L)
+                .title("")
+                .price(new BigDecimal("-1.00"))
+                .isbn("978-0451524935")
                 .stock(10)
                 .build();
 
@@ -136,10 +135,8 @@ class BookControllerTest {
                 .description("Updated")
                 .price(new BigDecimal("15.99"))
                 .isbn("978-0451524935")
-                .authorId(1L)
-                .authorName("George Orwell")
-                .categoryId(1L)
-                .categoryName("Fiction")
+                .authors(List.of(AuthorResponse.builder().id(1L).name("George Orwell").build()))
+                .categories(List.of(CategoryResponse.builder().id(1L).name("Fiction").build()))
                 .stock(80)
                 .build();
 

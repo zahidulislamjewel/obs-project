@@ -4,6 +4,8 @@ import com.obs.backend.dto.BookRequest;
 import com.obs.backend.dto.BookResponse;
 import com.obs.backend.entity.Author;
 import com.obs.backend.entity.Book;
+import com.obs.backend.entity.BookAuthor;
+import com.obs.backend.entity.BookCategory;
 import com.obs.backend.entity.Category;
 import com.obs.backend.repository.AuthorRepository;
 import com.obs.backend.repository.BookRepository;
@@ -63,10 +65,18 @@ class BookServiceTest {
                 .price(new BigDecimal("12.99"))
                 .isbn("978-0451524935")
                 .publishedDate(LocalDate.of(1949, 6, 8))
-                .author(author)
-                .category(category)
                 .stock(100)
                 .build();
+
+        BookAuthor ba = new BookAuthor();
+        ba.setBook(book);
+        ba.setAuthor(author);
+        book.getBookAuthors().add(ba);
+
+        BookCategory bc = new BookCategory();
+        bc.setBook(book);
+        bc.setCategory(category);
+        book.getBookCategories().add(bc);
 
         bookRequest = BookRequest.builder()
                 .title("1984")
@@ -74,8 +84,8 @@ class BookServiceTest {
                 .price(new BigDecimal("12.99"))
                 .isbn("978-0451524935")
                 .publishedDate(LocalDate.of(1949, 6, 8))
-                .authorId(1L)
-                .categoryId(1L)
+                .authorIds(List.of(1L))
+                .categoryIds(List.of(1L))
                 .stock(100)
                 .build();
     }
@@ -103,7 +113,8 @@ class BookServiceTest {
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(1L);
         assertThat(result.getTitle()).isEqualTo("1984");
-        assertThat(result.getAuthorName()).isEqualTo("George Orwell");
+        assertThat(result.getAuthors()).hasSize(1);
+        assertThat(result.getAuthors().get(0).getName()).isEqualTo("George Orwell");
     }
 
     @Test
@@ -156,8 +167,8 @@ class BookServiceTest {
                 .price(new BigDecimal("15.99"))
                 .isbn("978-0451524935")
                 .publishedDate(LocalDate.of(1949, 6, 8))
-                .authorId(1L)
-                .categoryId(1L)
+                .authorIds(List.of(1L))
+                .categoryIds(List.of(1L))
                 .stock(80)
                 .build();
 
@@ -168,10 +179,18 @@ class BookServiceTest {
                 .price(new BigDecimal("15.99"))
                 .isbn("978-0451524935")
                 .publishedDate(LocalDate.of(1949, 6, 8))
-                .author(author)
-                .category(category)
                 .stock(80)
                 .build();
+
+        BookAuthor uba = new BookAuthor();
+        uba.setBook(updatedBook);
+        uba.setAuthor(author);
+        updatedBook.getBookAuthors().add(uba);
+
+        BookCategory ubc = new BookCategory();
+        ubc.setBook(updatedBook);
+        ubc.setCategory(category);
+        updatedBook.getBookCategories().add(ubc);
 
         when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
         when(authorRepository.findById(1L)).thenReturn(Optional.of(author));
@@ -182,6 +201,7 @@ class BookServiceTest {
 
         assertThat(result.getTitle()).isEqualTo("Nineteen Eighty-Four");
         assertThat(result.getStock()).isEqualTo(80);
+        assertThat(result.getAuthors()).hasSize(1);
         verify(bookRepository).save(any(Book.class));
     }
 

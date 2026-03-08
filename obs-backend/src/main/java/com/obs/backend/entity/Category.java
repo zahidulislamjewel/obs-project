@@ -3,6 +3,9 @@ package com.obs.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "categories")
 @Getter
@@ -21,4 +24,8 @@ public class Category {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<BookCategory> bookCategories = new ArrayList<>();
 }

@@ -19,9 +19,9 @@
 
     <!-- Right: Info -->
     <div class="detail-info-col">
-      <span class="detail-category">{{ book.categoryName }}</span>
+      <span class="detail-category">{{ book.categories[0]?.name }}</span>
       <h1 class="detail-title">{{ book.title }}</h1>
-      <p class="detail-author">by <strong>{{ book.authorName }}</strong></p>
+      <p class="detail-author">by <strong>{{ book.authors[0]?.name }}</strong></p>
 
       <div class="detail-price-block">
         <span class="detail-price">${{ book.price | number:'1.2-2' }}</span>
@@ -39,8 +39,8 @@
           </span>
         </div>
         <div class="meta-item">
-          <span class="meta-label"><i class="fas fa-tag"></i> Category</span>
-          <span class="meta-val">{{ book.categoryName }}</span>
+          <span class="meta-label"><i class="fas fa-tag"></i> Categories</span>
+          <span class="meta-val">{{ categoryNames() }}</span>
         </div>
         <div class="meta-item">
           <span class="meta-label"><i class="fas fa-barcode"></i> ISBN</span>

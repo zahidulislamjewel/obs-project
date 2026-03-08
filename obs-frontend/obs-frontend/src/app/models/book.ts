@@ -1,3 +1,15 @@
+export interface AuthorRef {
+  id: number;
+  name: string;
+  bio?: string;
+}
+
+export interface CategoryRef {
+  id: number;
+  name: string;
+  description?: string;
+}
+
 export interface Book {
   id: number;
   title: string;
@@ -5,10 +17,8 @@ export interface Book {
   price: number;
   isbn: string;
   publishedDate: string;
-  authorId: number;
-  authorName: string;
-  categoryId: number;
-  categoryName: string;
+  authors: AuthorRef[];
+  categories: CategoryRef[];
   stock: number;
   coverImageUrl?: string;
 }
@@ -19,8 +29,8 @@ export interface BookRequest {
   price: number;
   isbn: string;
   publishedDate: string;
-  authorId: number | null;
-  categoryId: number | null;
+  authorIds: number[];
+  categoryIds: number[];
   stock: number;
   coverImageUrl?: string;
 }

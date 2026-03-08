@@ -15,7 +15,7 @@ import { Book } from '../../models/book';
 export class BookListComponent implements OnInit {
   allBooks: Book[] = [];
   filteredBooks: Book[] = [];
-  categoryNames: string[] = [];
+  filterCategories: string[] = [];
   activeCategory = 'All';
 
   constructor(
@@ -29,7 +29,7 @@ export class BookListComponent implements OnInit {
       this.filteredBooks = books;
     });
     this.categoryService.getCategories().subscribe(categories => {
-      this.categoryNames = ['All', ...categories.map(c => c.name)];
+      this.filterCategories = ['All', ...categories.map(c => c.name)];
     });
   }
 
@@ -37,7 +37,15 @@ export class BookListComponent implements OnInit {
     this.activeCategory = cat;
     this.filteredBooks = cat === 'All'
       ? this.allBooks
-      : this.allBooks.filter(b => b.categoryName === cat);
+      : this.allBooks.filter(b => b.categories.some(c => c.name === cat));
+  }
+
+  authorNames(book: Book): string {
+    return book.authors.map(a => a.name).join(', ');
+  }
+
+  bookCategoryNames(book: Book): string {
+    return book.categories.map(c => c.name).join(', ');
   }
 
   deleteBook(id: number, event: Event): void {

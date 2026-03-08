@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,10 +20,8 @@ public class BookResponse {
     private BigDecimal price;
     private String isbn;
     private LocalDate publishedDate;
-    private Long authorId;
-    private String authorName;
-    private Long categoryId;
-    private String categoryName;
+    private List<AuthorResponse> authors;
+    private List<CategoryResponse> categories;
     private Integer stock;
     private String coverImageUrl;
 
@@ -34,10 +33,12 @@ public class BookResponse {
                 .price(book.getPrice())
                 .isbn(book.getIsbn())
                 .publishedDate(book.getPublishedDate())
-                .authorId(book.getAuthor().getId())
-                .authorName(book.getAuthor().getName())
-                .categoryId(book.getCategory().getId())
-                .categoryName(book.getCategory().getName())
+                .authors(book.getBookAuthors().stream()
+                        .map(ba -> AuthorResponse.from(ba.getAuthor()))
+                        .toList())
+                .categories(book.getBookCategories().stream()
+                        .map(bc -> CategoryResponse.from(bc.getCategory()))
+                        .toList())
                 .stock(book.getStock())
                 .coverImageUrl(book.getCoverImageUrl())
                 .build();

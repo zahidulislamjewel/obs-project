@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,11 +28,11 @@ public class BookRequest {
 
     private LocalDate publishedDate;
 
-    @NotNull(message = "Author ID is required")
-    private Long authorId;
+    @NotEmpty(message = "At least one author is required")
+    private List<Long> authorIds;
 
-    @NotNull(message = "Category ID is required")
-    private Long categoryId;
+    @NotEmpty(message = "At least one category is required")
+    private List<Long> categoryIds;
 
     @NotNull(message = "Stock is required")
     @Min(value = 0, message = "Stock cannot be negative")

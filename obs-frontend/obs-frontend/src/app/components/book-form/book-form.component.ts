@@ -26,8 +26,8 @@ export class BookFormComponent implements OnInit {
     price: 0,
     isbn: '',
     publishedDate: '',
-    authorId: null,
-    categoryId: null,
+    authorIds: [],
+    categoryIds: [],
     stock: 0,
     coverImageUrl: ''
   };
@@ -64,12 +64,36 @@ export class BookFormComponent implements OnInit {
           price: book.price,
           isbn: book.isbn,
           publishedDate: book.publishedDate,
-          authorId: book.authorId,
-          categoryId: book.categoryId,
+          authorIds: book.authors.map(a => a.id),
+          categoryIds: book.categories.map(c => c.id),
           stock: book.stock,
           coverImageUrl: book.coverImageUrl || ''
         };
       });
+    }
+  }
+
+  isAuthorSelected(id: number): boolean {
+    return this.formData.authorIds.includes(id);
+  }
+
+  toggleAuthor(id: number): void {
+    if (this.isAuthorSelected(id)) {
+      this.formData.authorIds = this.formData.authorIds.filter(x => x !== id);
+    } else {
+      this.formData.authorIds = [...this.formData.authorIds, id];
+    }
+  }
+
+  isCategorySelected(id: number): boolean {
+    return this.formData.categoryIds.includes(id);
+  }
+
+  toggleCategory(id: number): void {
+    if (this.isCategorySelected(id)) {
+      this.formData.categoryIds = this.formData.categoryIds.filter(x => x !== id);
+    } else {
+      this.formData.categoryIds = [...this.formData.categoryIds, id];
     }
   }
 
@@ -82,7 +106,7 @@ export class BookFormComponent implements OnInit {
     if (!this.newAuthorData.name.trim()) return;
     this.authorService.createAuthor(this.newAuthorData).subscribe(created => {
       this.authors.push(created);
-      this.formData.authorId = created.id;
+      this.formData.authorIds = [...this.formData.authorIds, created.id];
       this.showAuthorForm = false;
       this.newAuthorData = { name: '', bio: '' };
     });
@@ -98,12 +122,23 @@ export class BookFormComponent implements OnInit {
     this.categoryService.createCategory(this.newCategoryData).subscribe({
       next: (created) => {
         this.categories.push(created);
-        this.formData.categoryId = created.id;
+        this.formData.categoryIds = [...this.formData.categoryIds, created.id];
         this.showCategoryForm = false;
         this.newCategoryData = { name: '', description: '' };
       },
       error: (err) => console.error('Failed to create category', err)
     });
+  }
+
+  isFormValid(): boolean {
+    return !!(
+      this.formData.title.trim() &&
+      this.formData.isbn.trim() &&
+      this.formData.price > 0 &&
+      this.formData.authorIds.length > 0 &&
+      this.formData.categoryIds.length > 0 &&
+      this.formData.stock >= 0
+    );
   }
 
   onSubmit(): void {

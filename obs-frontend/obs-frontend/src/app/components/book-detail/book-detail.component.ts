@@ -33,6 +33,10 @@ export class BookDetailComponent implements OnInit {
     }
   }
 
+  categoryNames(): string {
+    return this.book?.categories.map(c => c.name).join(', ') ?? '';
+  }
+
   onImgError(event: Event): void {
     (event.target as HTMLImageElement).style.display = 'none';
   }
