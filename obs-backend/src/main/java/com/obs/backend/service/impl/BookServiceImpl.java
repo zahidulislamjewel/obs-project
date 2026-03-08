@@ -61,6 +61,7 @@ public class BookServiceImpl implements BookService {
                 .author(author)
                 .category(category)
                 .stock(request.getStock())
+                .coverImageUrl(request.getCoverImageUrl())
                 .build();
 
         return BookResponse.from(bookRepository.save(book));
@@ -84,6 +85,7 @@ public class BookServiceImpl implements BookService {
         book.setAuthor(author);
         book.setCategory(category);
         book.setStock(request.getStock());
+        book.setCoverImageUrl(request.getCoverImageUrl());
 
         return BookResponse.from(bookRepository.save(book));
     }

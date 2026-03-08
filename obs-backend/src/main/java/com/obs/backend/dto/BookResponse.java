@@ -24,6 +24,7 @@ public class BookResponse {
     private Long categoryId;
     private String categoryName;
     private Integer stock;
+    private String coverImageUrl;
 
     public static BookResponse from(Book book) {
         return BookResponse.builder()
@@ -38,6 +39,7 @@ public class BookResponse {
                 .categoryId(book.getCategory().getId())
                 .categoryName(book.getCategory().getName())
                 .stock(book.getStock())
+                .coverImageUrl(book.getCoverImageUrl())
                 .build();
     }
 }
