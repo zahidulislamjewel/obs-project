@@ -18,7 +18,7 @@ export interface BookRequest {
   price: number;
   isbn: string;
   publishedDate: string;
-  authorId: number;
-  categoryId: number;
+  authorId: number | null;
+  categoryId: number | null;
   stock: number;
 }

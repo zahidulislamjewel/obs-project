@@ -26,8 +26,8 @@ export class BookFormComponent implements OnInit {
     price: 0,
     isbn: '',
     publishedDate: '',
-    authorId: 0,
-    categoryId: 0,
+    authorId: null,
+    categoryId: null,
     stock: 0
   };
 

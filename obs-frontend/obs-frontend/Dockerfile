@@ -1,6 +1,6 @@
-FROM node:18-alpine
+# Stage 1: Build the Angular application
+FROM node:18-alpine AS builder
 
-# Install Angular CLI and TypeScript globally — no local installation needed
 RUN npm install -g @angular/cli@17 typescript
 
 WORKDIR /app
@@ -10,6 +10,13 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 4200
+RUN ng build --configuration production
 
-CMD ["ng", "serve", "--host", "0.0.0.0", "--poll", "2000", "--configuration", "production"]
+# Stage 2: Serve with nginx
+FROM nginx:alpine
+
+COPY --from=builder /app/dist/obs-frontend/browser /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
