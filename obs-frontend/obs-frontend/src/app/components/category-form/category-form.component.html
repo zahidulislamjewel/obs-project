@@ -1,36 +1,36 @@
 <div class="form-page container">
+
   <div class="form-header">
     <a routerLink="/categories" class="back-link">
       <i class="fas fa-arrow-left"></i> Back
     </a>
     <div>
-      <h1 class="form-title">New Category</h1>
-      <p class="form-subtitle">Add a new book category</p>
+      <h1 class="form-title">Add New Category</h1>
+      <p class="form-subtitle">Fill in the details to register a new category</p>
     </div>
   </div>
 
-  <div class="form-layout">
-    <div class="form-card">
-      <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
-        <div class="form-grid">
-          <div class="form-group full-width">
-            <label for="name">Name <span class="req">*</span></label>
-            <input id="name" name="name" [(ngModel)]="formData.name" required
-              placeholder="e.g. Science Fiction" class="form-control">
-          </div>
-          <div class="form-group full-width">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" [(ngModel)]="formData.description"
-              rows="3" placeholder="What kind of books belong here?" class="form-control"></textarea>
-          </div>
-        </div>
-        <div class="form-actions">
-          <a routerLink="/categories" class="btn btn-ghost">Cancel</a>
-          <button type="submit" [disabled]="categoryForm.invalid" class="btn btn-primary btn-lg">
-            <i class="fas fa-plus"></i> Add Category
-          </button>
-        </div>
-      </form>
-    </div>
+  <div class="form-card">
+    <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name <span class="req">*</span></label>
+        <input id="name" name="name" [(ngModel)]="formData.name" required
+          placeholder="e.g. Science Fiction" class="form-control">
+      </div>
+
+      <div class="form-group" style="margin-top: 20px;">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" [(ngModel)]="formData.description"
+          rows="5" placeholder="What kind of books belong here? (optional)" class="form-control"></textarea>
+      </div>
+
+      <div class="form-actions" style="margin-top: 28px;">
+        <a routerLink="/categories" class="btn btn-ghost">Cancel</a>
+        <button type="submit" [disabled]="categoryForm.invalid" class="btn btn-primary btn-lg">
+          <i class="fas fa-plus"></i> Add Category
+        </button>
+      </div>
+    </form>
   </div>
+
 </div>
