@@ -4,6 +4,8 @@ import { BookDetailComponent } from './components/book-detail/book-detail.compon
 import { BookFormComponent } from './components/book-form/book-form.component';
 import { AuthorListComponent } from './components/author-list/author-list.component';
 import { AuthorFormComponent } from './components/author-form/author-form.component';
+import { CategoryListComponent } from './components/category-list/category-list.component';
+import { CategoryFormComponent } from './components/category-form/category-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/books', pathMatch: 'full' },
@@ -13,4 +15,6 @@ export const routes: Routes = [
   { path: 'books/:id', component: BookDetailComponent },
   { path: 'authors', component: AuthorListComponent },
   { path: 'authors/new', component: AuthorFormComponent },
+  { path: 'categories', component: CategoryListComponent },
+  { path: 'categories/new', component: CategoryFormComponent },
 ];
