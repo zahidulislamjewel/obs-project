@@ -10,6 +10,7 @@ export interface Book {
   categoryId: number;
   categoryName: string;
   stock: number;
+  coverImageUrl?: string;
 }
 
 export interface BookRequest {
@@ -21,4 +22,5 @@ export interface BookRequest {
   authorId: number | null;
   categoryId: number | null;
   stock: number;
+  coverImageUrl?: string;
 }
