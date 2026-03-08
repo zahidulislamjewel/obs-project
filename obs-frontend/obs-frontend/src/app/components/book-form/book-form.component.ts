@@ -28,7 +28,8 @@ export class BookFormComponent implements OnInit {
     publishedDate: '',
     authorId: null,
     categoryId: null,
-    stock: 0
+    stock: 0,
+    coverImageUrl: ''
   };
 
   authors: Author[] = [];
@@ -36,6 +37,9 @@ export class BookFormComponent implements OnInit {
 
   showAuthorForm = false;
   newAuthorData = { name: '', bio: '' };
+
+  showCategoryForm = false;
+  newCategoryData = { name: '', description: '' };
 
   constructor(
     private route: ActivatedRoute,
@@ -62,7 +66,8 @@ export class BookFormComponent implements OnInit {
           publishedDate: book.publishedDate,
           authorId: book.authorId,
           categoryId: book.categoryId,
-          stock: book.stock
+          stock: book.stock,
+          coverImageUrl: book.coverImageUrl || ''
         };
       });
     }
@@ -80,6 +85,21 @@ export class BookFormComponent implements OnInit {
       this.formData.authorId = created.id;
       this.showAuthorForm = false;
       this.newAuthorData = { name: '', bio: '' };
+    });
+  }
+
+  toggleCategoryForm(): void {
+    this.showCategoryForm = !this.showCategoryForm;
+    this.newCategoryData = { name: '', description: '' };
+  }
+
+  saveNewCategory(): void {
+    if (!this.newCategoryData.name.trim()) return;
+    this.categoryService.createCategory(this.newCategoryData).subscribe(created => {
+      this.categories.push(created);
+      this.formData.categoryId = created.id;
+      this.showCategoryForm = false;
+      this.newCategoryData = { name: '', description: '' };
     });
   }
 
