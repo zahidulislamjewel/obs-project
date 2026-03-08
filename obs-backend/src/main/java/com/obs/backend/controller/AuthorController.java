@@ -29,4 +29,15 @@ public class AuthorController {
     public ResponseEntity<AuthorResponse> createAuthor(@Valid @RequestBody AuthorRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(authorService.createAuthor(request));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AuthorResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(authorService.getAuthorById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AuthorResponse> update(@PathVariable Long id,
+                                                  @Valid @RequestBody AuthorRequest request) {
+        return ResponseEntity.ok(authorService.updateAuthor(id, request));
+    }
 }

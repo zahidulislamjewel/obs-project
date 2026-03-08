@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CdkListboxModule } from '@angular/cdk/listbox';
 import { BookService } from '../../services/book.service';
 import { AuthorService } from '../../services/author.service';
 import { CategoryService } from '../../services/category.service';
@@ -12,7 +13,7 @@ import { Category } from '../../models/category';
 @Component({
   selector: 'app-book-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, CdkListboxModule],
   templateUrl: './book-form.component.html',
   styleUrl: './book-form.component.css'
 })
@@ -70,30 +71,6 @@ export class BookFormComponent implements OnInit {
           coverImageUrl: book.coverImageUrl || ''
         };
       });
-    }
-  }
-
-  isAuthorSelected(id: number): boolean {
-    return this.formData.authorIds.includes(id);
-  }
-
-  toggleAuthor(id: number): void {
-    if (this.isAuthorSelected(id)) {
-      this.formData.authorIds = this.formData.authorIds.filter(x => x !== id);
-    } else {
-      this.formData.authorIds = [...this.formData.authorIds, id];
-    }
-  }
-
-  isCategorySelected(id: number): boolean {
-    return this.formData.categoryIds.includes(id);
-  }
-
-  toggleCategory(id: number): void {
-    if (this.isCategorySelected(id)) {
-      this.formData.categoryIds = this.formData.categoryIds.filter(x => x !== id);
-    } else {
-      this.formData.categoryIds = [...this.formData.categoryIds, id];
     }
   }
 

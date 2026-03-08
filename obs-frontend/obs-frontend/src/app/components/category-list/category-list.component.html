@@ -20,9 +20,16 @@
       <div class="category-avatar">
         <i class="fas fa-tag"></i>
       </div>
-      <div class="category-info">
-        <h3 class="category-name">{{ c.name }}</h3>
-        <p class="category-desc">{{ c.description || 'No description available.' }}</p>
+      <div class="category-body">
+        <div class="category-info">
+          <h3 class="category-name">{{ c.name }}</h3>
+          <p class="category-desc">{{ c.description || 'No description available.' }}</p>
+        </div>
+        <div class="card-actions">
+          <a [routerLink]="['/categories/edit', c.id]" class="btn btn-ghost btn-sm">
+            <i class="fas fa-edit"></i> Edit
+          </a>
+        </div>
       </div>
     </div>
   </div>

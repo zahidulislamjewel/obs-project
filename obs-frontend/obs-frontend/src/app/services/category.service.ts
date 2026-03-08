@@ -17,4 +17,12 @@ export class CategoryService {
   createCategory(request: CategoryRequest): Observable<Category> {
     return this.http.post<Category>(this.url, request);
   }
+
+  getCategory(id: number): Observable<Category> {
+    return this.http.get<Category>(`${this.url}/${id}`);
+  }
+
+  updateCategory(id: number, request: CategoryRequest): Observable<Category> {
+    return this.http.put<Category>(`${this.url}/${id}`, request);
+  }
 }

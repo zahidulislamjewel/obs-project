@@ -1,88 +1,33 @@
 <div class="form-page container">
 
-  <!-- Header -->
+  <!-- Back link -->
   <div class="form-header">
     <a routerLink="/books" class="back-link">
       <i class="fas fa-arrow-left"></i> Back
     </a>
-    <div>
-      <h1 class="form-title">{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h1>
-      <p class="form-subtitle">{{ isEditMode ? 'Update the details below' : 'Fill in the details to list a new book' }}</p>
-    </div>
   </div>
 
-  <div class="form-layout">
-    <!-- Form -->
-    <div class="form-card">
-      <form (ngSubmit)="onSubmit()" #bookForm="ngForm">
+  <!-- Hero -->
+  <div class="form-hero">
+    <div class="form-hero-icon"><i class="fas fa-book-open"></i></div>
+    <div class="form-hero-text">
+      <h1 class="form-title">{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h1>
+      <p class="form-subtitle">{{ isEditMode ? 'Update the book details below.' : 'Fill in the details to list a new book in the store.' }}</p>
+    </div>
+  </div>
+  <hr class="form-divider">
 
+  <div class="form-card">
+    <form (ngSubmit)="onSubmit()" #bookForm="ngForm">
+
+      <!-- Section 1: Book Info -->
+      <div class="form-section">
+        <h3 class="section-label">Book Info</h3>
         <div class="form-grid">
           <div class="form-group full-width">
             <label for="title">Title <span class="req">*</span></label>
             <input id="title" name="title" [(ngModel)]="formData.title" required
               placeholder="e.g. Clean Code" class="form-control">
-          </div>
-
-          <!-- Authors multi-select -->
-          <div class="form-group">
-            <label>Authors <span class="req">*</span></label>
-            <div class="multi-select-list">
-              <label *ngFor="let a of authors" class="checkbox-item">
-                <input type="checkbox" [checked]="isAuthorSelected(a.id)" (change)="toggleAuthor(a.id)">
-                {{ a.name }}
-              </label>
-              <p *ngIf="authors.length === 0" class="no-options">No authors yet.</p>
-            </div>
-            <p *ngIf="formData.authorIds.length === 0" class="field-hint req-hint">Select at least one author</p>
-            <button type="button" class="btn btn-ghost btn-sm" style="margin-top:8px" (click)="toggleAuthorForm()">
-              <i class="fas" [class.fa-plus]="!showAuthorForm" [class.fa-times]="showAuthorForm"></i>
-              {{ showAuthorForm ? 'Cancel' : 'New Author' }}
-            </button>
-
-            <div *ngIf="showAuthorForm" class="inline-author-form">
-              <div class="form-group">
-                <label>Name <span class="req">*</span></label>
-                <input name="newAuthorName" [(ngModel)]="newAuthorData.name" placeholder="Author name" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Bio</label>
-                <textarea name="newAuthorBio" [(ngModel)]="newAuthorData.bio" rows="2" placeholder="Short bio (optional)" class="form-control"></textarea>
-              </div>
-              <button type="button" class="btn btn-primary btn-sm" (click)="saveNewAuthor()">
-                <i class="fas fa-check"></i> Save Author
-              </button>
-            </div>
-          </div>
-
-          <!-- Categories multi-select -->
-          <div class="form-group">
-            <label>Categories <span class="req">*</span></label>
-            <div class="multi-select-list">
-              <label *ngFor="let c of categories" class="checkbox-item">
-                <input type="checkbox" [checked]="isCategorySelected(c.id)" (change)="toggleCategory(c.id)">
-                {{ c.name }}
-              </label>
-              <p *ngIf="categories.length === 0" class="no-options">No categories yet.</p>
-            </div>
-            <p *ngIf="formData.categoryIds.length === 0" class="field-hint req-hint">Select at least one category</p>
-            <button type="button" class="btn btn-ghost btn-sm" style="margin-top:8px" (click)="toggleCategoryForm()">
-              <i class="fas" [class.fa-plus]="!showCategoryForm" [class.fa-times]="showCategoryForm"></i>
-              {{ showCategoryForm ? 'Cancel' : 'New Category' }}
-            </button>
-
-            <div *ngIf="showCategoryForm" class="inline-author-form">
-              <div class="form-group">
-                <label>Name <span class="req">*</span></label>
-                <input name="newCategoryName" [(ngModel)]="newCategoryData.name" placeholder="Category name" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Description</label>
-                <textarea name="newCategoryDesc" [(ngModel)]="newCategoryData.description" rows="2" placeholder="Short description (optional)" class="form-control"></textarea>
-              </div>
-              <button type="button" class="btn btn-primary btn-sm" (click)="saveNewCategory()">
-                <i class="fas fa-check"></i> Save Category
-              </button>
-            </div>
           </div>
 
           <div class="form-group">
@@ -111,7 +56,81 @@
             <input id="publishedDate" name="publishedDate" type="date"
               [(ngModel)]="formData.publishedDate" required class="form-control">
           </div>
+        </div>
+      </div>
 
+      <!-- Section 2: Authors & Categories -->
+      <div class="form-section">
+        <h3 class="section-label">Authors &amp; Categories</h3>
+        <div class="form-grid">
+
+          <!-- Authors CDK Listbox -->
+          <div class="form-group">
+            <label>Authors <span class="req">*</span></label>
+            <ul cdkListbox [cdkListboxMultiple]="true" [(cdkListboxValue)]="formData.authorIds"
+                class="cdk-listbox">
+              <li *ngFor="let a of authors" [cdkOption]="a.id" class="cdk-option">
+                <i class="fas fa-check check-icon"></i> {{ a.name }}
+              </li>
+              <li *ngIf="authors.length === 0" class="cdk-empty">No authors yet.</li>
+            </ul>
+            <p *ngIf="formData.authorIds.length === 0" class="field-hint req-hint">Select at least one author</p>
+            <button type="button" class="btn btn-ghost btn-sm" style="margin-top:8px" (click)="toggleAuthorForm()">
+              <i class="fas" [class.fa-plus]="!showAuthorForm" [class.fa-times]="showAuthorForm"></i>
+              {{ showAuthorForm ? 'Cancel' : 'New Author' }}
+            </button>
+            <div *ngIf="showAuthorForm" class="inline-author-form">
+              <div class="form-group">
+                <label>Name <span class="req">*</span></label>
+                <input name="newAuthorName" [(ngModel)]="newAuthorData.name" placeholder="Author name" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Bio</label>
+                <textarea name="newAuthorBio" [(ngModel)]="newAuthorData.bio" rows="2" placeholder="Short bio (optional)" class="form-control"></textarea>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" (click)="saveNewAuthor()">
+                <i class="fas fa-check"></i> Save Author
+              </button>
+            </div>
+          </div>
+
+          <!-- Categories CDK Listbox -->
+          <div class="form-group">
+            <label>Categories <span class="req">*</span></label>
+            <ul cdkListbox [cdkListboxMultiple]="true" [(cdkListboxValue)]="formData.categoryIds"
+                class="cdk-listbox">
+              <li *ngFor="let c of categories" [cdkOption]="c.id" class="cdk-option">
+                <i class="fas fa-check check-icon"></i> {{ c.name }}
+              </li>
+              <li *ngIf="categories.length === 0" class="cdk-empty">No categories yet.</li>
+            </ul>
+            <p *ngIf="formData.categoryIds.length === 0" class="field-hint req-hint">Select at least one category</p>
+            <button type="button" class="btn btn-ghost btn-sm" style="margin-top:8px" (click)="toggleCategoryForm()">
+              <i class="fas" [class.fa-plus]="!showCategoryForm" [class.fa-times]="showCategoryForm"></i>
+              {{ showCategoryForm ? 'Cancel' : 'New Category' }}
+            </button>
+            <div *ngIf="showCategoryForm" class="inline-author-form">
+              <div class="form-group">
+                <label>Name <span class="req">*</span></label>
+                <input name="newCategoryName" [(ngModel)]="newCategoryData.name" placeholder="Category name" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea name="newCategoryDesc" [(ngModel)]="newCategoryData.description" rows="2" placeholder="Short description (optional)" class="form-control"></textarea>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" (click)="saveNewCategory()">
+                <i class="fas fa-check"></i> Save Category
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section 3: Details -->
+      <div class="form-section">
+        <h3 class="section-label">Details</h3>
+        <div class="form-grid">
           <div class="form-group full-width">
             <label for="description">Description</label>
             <textarea id="description" name="description" [(ngModel)]="formData.description"
@@ -125,15 +144,15 @@
               placeholder="https://example.com/cover.jpg" class="form-control">
           </div>
         </div>
+      </div>
 
-        <div class="form-actions">
-          <a routerLink="/books" class="btn btn-ghost">Cancel</a>
-          <button type="submit" [disabled]="!isFormValid()" class="btn btn-primary btn-lg">
-            <i class="fas" [class.fa-plus]="!isEditMode" [class.fa-check]="isEditMode"></i>
-            {{ isEditMode ? 'Save Changes' : 'Add Book' }}
-          </button>
-        </div>
-      </form>
-    </div>
+      <div class="form-actions">
+        <a routerLink="/books" class="btn btn-ghost">Cancel</a>
+        <button type="submit" [disabled]="!isFormValid()" class="btn btn-primary btn-lg">
+          <i class="fas" [class.fa-plus]="!isEditMode" [class.fa-check]="isEditMode"></i>
+          {{ isEditMode ? 'Save Changes' : 'Add Book' }}
+        </button>
+      </div>
+    </form>
   </div>
 </div>

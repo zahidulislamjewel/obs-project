@@ -5,8 +5,8 @@
       <i class="fas fa-arrow-left"></i> Back
     </a>
     <div>
-      <h1 class="form-title">Add New Author</h1>
-      <p class="form-subtitle">Fill in the details to register a new author</p>
+      <h1 class="form-title">{{ isEditMode ? 'Edit Author' : 'Add New Author' }}</h1>
+      <p class="form-subtitle">{{ isEditMode ? 'Update the author details below.' : 'Fill in the details to register a new author' }}</p>
     </div>
   </div>
 
@@ -27,7 +27,8 @@
       <div class="form-actions" style="margin-top: 28px;">
         <a routerLink="/authors" class="btn btn-ghost">Cancel</a>
         <button type="submit" [disabled]="authorForm.invalid" class="btn btn-primary btn-lg">
-          <i class="fas fa-plus"></i> Add Author
+          <i class="fas" [class.fa-check]="isEditMode" [class.fa-plus]="!isEditMode"></i>
+          {{ isEditMode ? 'Save Changes' : 'Add Author' }}
         </button>
       </div>
     </form>

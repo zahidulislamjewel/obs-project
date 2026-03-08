@@ -7,4 +7,6 @@ import java.util.List;
 public interface AuthorService {
     List<AuthorResponse> getAllAuthors();
     AuthorResponse createAuthor(AuthorRequest request);
+    AuthorResponse getAuthorById(Long id);
+    AuthorResponse updateAuthor(Long id, AuthorRequest request);
 }

@@ -20,9 +20,16 @@
       <div class="author-avatar">
         <i class="fas fa-user"></i>
       </div>
-      <div class="author-info">
-        <h3 class="author-name">{{ a.name }}</h3>
-        <p class="author-bio">{{ a.bio || 'No bio available.' }}</p>
+      <div class="author-body">
+        <div class="author-info">
+          <h3 class="author-name">{{ a.name }}</h3>
+          <p class="author-bio">{{ a.bio || 'No bio available.' }}</p>
+        </div>
+        <div class="card-actions">
+          <a [routerLink]="['/authors/edit', a.id]" class="btn btn-ghost btn-sm">
+            <i class="fas fa-edit"></i> Edit
+          </a>
+        </div>
       </div>
     </div>
   </div>

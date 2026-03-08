@@ -210,3 +210,99 @@ select.form-control { cursor: pointer; }
   .form-grid { grid-template-columns: 1fr; }
   .form-page { max-width: 100%; }
 }
+
+/* Form hero */
+.form-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.form-hero-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.form-divider {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 0 0 32px;
+}
+
+/* Form sections */
+.form-section {
+  margin-bottom: 32px;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 8px;
+}
+
+/* CDK Listbox */
+.cdk-listbox {
+  list-style: none;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  max-height: 160px;
+  overflow-y: auto;
+  padding: 6px 0;
+  background: var(--bg);
+  outline: none;
+  margin: 0;
+}
+
+.cdk-option {
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  transition: background 0.1s;
+  font-weight: 400;
+  letter-spacing: normal;
+  margin-bottom: 0;
+}
+
+.cdk-option:hover {
+  background: var(--primary-light);
+}
+
+.cdk-option[aria-selected="true"] {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.check-icon {
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.cdk-option[aria-selected="true"] .check-icon {
+  opacity: 1;
+}
+
+.cdk-empty {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  color: var(--text-light);
+}

@@ -19,4 +19,12 @@ export class AuthorService {
   createAuthor(request: { name: string; bio: string }): Observable<Author> {
     return this.http.post<Author>(this.baseUrl, request);
   }
+
+  getAuthor(id: number): Observable<Author> {
+    return this.http.get<Author>(`${this.baseUrl}/${id}`);
+  }
+
+  updateAuthor(id: number, request: { name: string; bio: string }): Observable<Author> {
+    return this.http.put<Author>(`${this.baseUrl}/${id}`, request);
+  }
 }

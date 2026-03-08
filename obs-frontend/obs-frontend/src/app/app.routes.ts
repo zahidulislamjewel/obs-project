@@ -15,6 +15,8 @@ export const routes: Routes = [
   { path: 'books/:id', component: BookDetailComponent },
   { path: 'authors', component: AuthorListComponent },
   { path: 'authors/new', component: AuthorFormComponent },
+  { path: 'authors/edit/:id', component: AuthorFormComponent },
   { path: 'categories', component: CategoryListComponent },
   { path: 'categories/new', component: CategoryFormComponent },
+  { path: 'categories/edit/:id', component: CategoryFormComponent },
 ];
