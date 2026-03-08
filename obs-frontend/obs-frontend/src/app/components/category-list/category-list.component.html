@@ -1,0 +1,27 @@
+<div class="list-page container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Categories</h1>
+      <p class="page-subtitle">{{ categories.length }} categor{{ categories.length !== 1 ? 'ies' : 'y' }}</p>
+    </div>
+    <a routerLink="/categories/new" class="btn btn-accent">
+      <i class="fas fa-plus"></i> New Category
+    </a>
+  </div>
+
+  <div class="items-grid">
+    <div class="item-card" *ngFor="let c of categories">
+      <div class="item-icon"><i class="fas fa-tag"></i></div>
+      <div class="item-info">
+        <h3 class="item-name">{{ c.name }}</h3>
+        <p class="item-bio">{{ c.description || 'No description' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="categories.length === 0">
+    <i class="fas fa-tag"></i>
+    <p>No categories yet.</p>
+    <a routerLink="/categories/new" class="btn btn-primary">Add the first one</a>
+  </div>
+</div>
