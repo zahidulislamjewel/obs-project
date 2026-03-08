@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category } from '../models/category';
 import { environment } from '../../environments/environment';
+import { Category, CategoryRequest } from '../models/category';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class CategoryService {
-  private readonly baseUrl = `${environment.backendBaseUrl}/categories`;
+  private url = `${environment.backendBaseUrl}/categories`;
 
   constructor(private http: HttpClient) {}
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.baseUrl);
+    return this.http.get<Category[]>(this.url);
+  }
+
+  createCategory(request: CategoryRequest): Observable<Category> {
+    return this.http.post<Category>(this.url, request);
   }
 }
