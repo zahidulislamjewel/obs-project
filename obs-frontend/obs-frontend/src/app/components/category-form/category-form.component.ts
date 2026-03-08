@@ -17,8 +17,9 @@ export class CategoryFormComponent {
   constructor(private categoryService: CategoryService, private router: Router) {}
 
   onSubmit(): void {
-    this.categoryService.createCategory(this.formData).subscribe(() => {
-      this.router.navigate(['/categories']);
+    this.categoryService.createCategory(this.formData).subscribe({
+      next: () => this.router.navigate(['/categories']),
+      error: (err) => console.error('Failed to create category', err)
     });
   }
 }

@@ -95,11 +95,14 @@ export class BookFormComponent implements OnInit {
 
   saveNewCategory(): void {
     if (!this.newCategoryData.name.trim()) return;
-    this.categoryService.createCategory(this.newCategoryData).subscribe(created => {
-      this.categories.push(created);
-      this.formData.categoryId = created.id;
-      this.showCategoryForm = false;
-      this.newCategoryData = { name: '', description: '' };
+    this.categoryService.createCategory(this.newCategoryData).subscribe({
+      next: (created) => {
+        this.categories.push(created);
+        this.formData.categoryId = created.id;
+        this.showCategoryForm = false;
+        this.newCategoryData = { name: '', description: '' };
+      },
+      error: (err) => console.error('Failed to create category', err)
     });
   }
 
