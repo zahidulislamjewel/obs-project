@@ -41,6 +41,15 @@
       [style.animation-delay]="(i * 0.05) + 's'"
       [routerLink]="['/books', book.id]">
 
+      <!-- Cover thumbnail -->
+      <div class="card-cover">
+        <img *ngIf="book.coverImageUrl" [src]="book.coverImageUrl" [alt]="book.title"
+          class="card-cover-img" (error)="onImgError($event)">
+        <div *ngIf="!book.coverImageUrl" class="card-cover-placeholder">
+          <i class="fas fa-book"></i>
+        </div>
+      </div>
+
       <!-- Info -->
       <div class="card-info">
         <span class="card-category">{{ book.categoryName }}</span>

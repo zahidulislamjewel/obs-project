@@ -32,4 +32,8 @@ export class BookDetailComponent implements OnInit {
       });
     }
   }
+
+  onImgError(event: Event): void {
+    (event.target as HTMLImageElement).style.display = 'none';
+  }
 }

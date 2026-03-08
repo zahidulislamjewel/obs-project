@@ -50,4 +50,8 @@ export class BookListComponent implements OnInit {
       });
     }
   }
+
+  onImgError(event: Event): void {
+    (event.target as HTMLImageElement).style.display = 'none';
+  }
 }

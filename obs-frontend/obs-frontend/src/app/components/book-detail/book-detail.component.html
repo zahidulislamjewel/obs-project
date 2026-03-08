@@ -8,6 +8,15 @@
   </nav>
 
   <div class="detail-layout">
+    <!-- Left: Cover Image -->
+    <div class="detail-cover-col">
+      <img *ngIf="book.coverImageUrl" [src]="book.coverImageUrl" [alt]="book.title + ' cover'"
+        class="detail-cover-img" (error)="onImgError($event)">
+      <div *ngIf="!book.coverImageUrl" class="detail-cover-placeholder">
+        <i class="fas fa-book"></i>
+      </div>
+    </div>
+
     <!-- Right: Info -->
     <div class="detail-info-col">
       <span class="detail-category">{{ book.categoryName }}</span>
