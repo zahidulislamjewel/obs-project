@@ -69,7 +69,7 @@
             <label>Authors <span class="req">*</span></label>
             <ul cdkListbox [cdkListboxMultiple]="true"
                 [cdkListboxValue]="formData.authorIds"
-                (cdkListboxValueChange)="formData.authorIds = $event.value"
+                (cdkListboxValueChange)="formData.authorIds = [...$event.value]"
                 class="cdk-listbox">
               <li *ngFor="let a of authors" [cdkOption]="a.id" class="cdk-option">
                 <i class="fas fa-check check-icon"></i> {{ a.name }}
@@ -101,7 +101,7 @@
             <label>Categories <span class="req">*</span></label>
             <ul cdkListbox [cdkListboxMultiple]="true"
                 [cdkListboxValue]="formData.categoryIds"
-                (cdkListboxValueChange)="formData.categoryIds = $event.value"
+                (cdkListboxValueChange)="formData.categoryIds = [...$event.value]"
                 class="cdk-listbox">
               <li *ngFor="let c of categories" [cdkOption]="c.id" class="cdk-option">
                 <i class="fas fa-check check-icon"></i> {{ c.name }}
