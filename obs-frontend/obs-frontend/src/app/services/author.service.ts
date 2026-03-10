@@ -27,4 +27,8 @@ export class AuthorService {
   updateAuthor(id: number, request: { name: string; bio: string }): Observable<Author> {
     return this.http.put<Author>(`${this.baseUrl}/${id}`, request);
   }
+
+  deleteAuthor(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }

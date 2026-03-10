@@ -19,4 +19,19 @@ export class AuthorListComponent implements OnInit {
   ngOnInit(): void {
     this.authorService.getAuthors().subscribe(a => this.authors = a);
   }
+
+  deleteAuthor(id: number): void {
+    if (!confirm('Delete this author? This cannot be undone.')) {
+      return;
+    }
+    this.authorService.deleteAuthor(id).subscribe({
+      next: () => {
+        this.authors = this.authors.filter(a => a.id !== id);
+      },
+      error: (err) => {
+        const message = err?.error?.message || err?.message || 'Failed to delete author.';
+        alert(message);
+      }
+    });
+  }
 }

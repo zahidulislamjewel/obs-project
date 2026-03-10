@@ -19,4 +19,19 @@ export class CategoryListComponent implements OnInit {
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(c => this.categories = c);
   }
+
+  deleteCategory(id: number): void {
+    if (!confirm('Delete this category? This cannot be undone.')) {
+      return;
+    }
+    this.categoryService.deleteCategory(id).subscribe({
+      next: () => {
+        this.categories = this.categories.filter(c => c.id !== id);
+      },
+      error: (err) => {
+        const message = err?.error?.message || err?.message || 'Failed to delete category.';
+        alert(message);
+      }
+    });
+  }
 }

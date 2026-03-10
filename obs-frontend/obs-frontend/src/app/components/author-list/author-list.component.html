@@ -29,6 +29,9 @@
           <a [routerLink]="['/authors/edit', a.id]" class="btn btn-ghost btn-sm">
             <i class="fas fa-edit"></i> Edit
           </a>
+          <button class="btn btn-danger btn-sm" (click)="deleteAuthor(a.id)">
+            <i class="fas fa-trash"></i> Delete
+          </button>
         </div>
       </div>
     </div>
