@@ -55,4 +55,13 @@ public class AuthorServiceImpl implements AuthorService {
         author.setBio(request.getBio());
         return AuthorResponse.from(authorRepository.save(author));
     }
+
+    @Override
+    @Transactional
+    public void deleteAuthor(Long id) {
+        if (!authorRepository.existsById(id)) {
+            throw new EntityNotFoundException("Author not found with id: " + id);
+        }
+        authorRepository.deleteById(id);
+    }
 }

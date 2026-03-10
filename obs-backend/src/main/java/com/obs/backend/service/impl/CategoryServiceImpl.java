@@ -55,4 +55,13 @@ public class CategoryServiceImpl implements CategoryService {
         category.setDescription(request.getDescription());
         return CategoryResponse.from(categoryRepository.save(category));
     }
+
+    @Override
+    @Transactional
+    public void deleteCategory(Long id) {
+        if (!categoryRepository.existsById(id)) {
+            throw new EntityNotFoundException("Category not found with id: " + id);
+        }
+        categoryRepository.deleteById(id);
+    }
 }
