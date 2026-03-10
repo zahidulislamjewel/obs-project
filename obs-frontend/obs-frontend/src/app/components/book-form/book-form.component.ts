@@ -74,6 +74,14 @@ export class BookFormComponent implements OnInit {
     }
   }
 
+  onAuthorSelectionChange(event: { value: readonly number[] }): void {
+    this.formData.authorIds = Array.from(event.value);
+  }
+
+  onCategorySelectionChange(event: { value: readonly number[] }): void {
+    this.formData.categoryIds = Array.from(event.value);
+  }
+
   toggleAuthorForm(): void {
     this.showAuthorForm = !this.showAuthorForm;
     this.newAuthorData = { name: '', bio: '' };
