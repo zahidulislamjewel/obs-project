@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CdkListboxModule } from '@angular/cdk/listbox';
 import { BookService } from '../../services/book.service';
 import { AuthorService } from '../../services/author.service';
 import { CategoryService } from '../../services/category.service';
@@ -13,7 +12,7 @@ import { Category } from '../../models/category';
 @Component({
   selector: 'app-book-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, CdkListboxModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './book-form.component.html',
   styleUrl: './book-form.component.css'
 })
@@ -82,12 +81,22 @@ export class BookFormComponent implements OnInit {
     this.formData.stock = parseInt((event.target as HTMLInputElement).value) || 0;
   }
 
-  onAuthorSelectionChange(event: { value: readonly number[] }): void {
-    this.formData.authorIds = Array.from(event.value);
+  onAuthorCheckboxChange(id: number, event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      this.formData.authorIds = [...this.formData.authorIds, id];
+    } else {
+      this.formData.authorIds = this.formData.authorIds.filter(i => i !== id);
+    }
   }
 
-  onCategorySelectionChange(event: { value: readonly number[] }): void {
-    this.formData.categoryIds = Array.from(event.value);
+  onCategoryCheckboxChange(id: number, event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      this.formData.categoryIds = [...this.formData.categoryIds, id];
+    } else {
+      this.formData.categoryIds = this.formData.categoryIds.filter(i => i !== id);
+    }
   }
 
   toggleAuthorForm(): void {

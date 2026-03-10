@@ -66,18 +66,17 @@
         <h3 class="section-label">Authors &amp; Categories</h3>
         <div class="form-grid">
 
-          <!-- Authors CDK Listbox -->
+          <!-- Authors Checkbox List -->
           <div class="form-group">
             <label>Authors <span class="req">*</span></label>
-            <ul cdkListbox [cdkListboxMultiple]="true"
-                [cdkListboxValue]="formData.authorIds"
-                (cdkListboxValueChange)="onAuthorSelectionChange($event)"
-                class="cdk-listbox">
-              <li *ngFor="let a of authors" [cdkOption]="a.id" class="cdk-option">
-                <i class="fas fa-check check-icon"></i> {{ a.name }}
-              </li>
-              <li *ngIf="authors.length === 0" class="cdk-empty">No authors yet.</li>
-            </ul>
+            <div class="multi-select-list">
+              <label *ngFor="let a of authors" class="checkbox-item">
+                <input type="checkbox" [checked]="formData.authorIds.includes(a.id)"
+                       (change)="onAuthorCheckboxChange(a.id, $event)">
+                {{ a.name }}
+              </label>
+              <span *ngIf="authors.length === 0" class="no-options">No authors yet.</span>
+            </div>
             <p *ngIf="formData.authorIds.length === 0" class="field-hint req-hint">Select at least one author</p>
             <button type="button" class="btn btn-ghost btn-sm" style="margin-top:8px" (click)="toggleAuthorForm()">
               <i class="fas" [class.fa-plus]="!showAuthorForm" [class.fa-times]="showAuthorForm"></i>
@@ -98,18 +97,17 @@
             </div>
           </div>
 
-          <!-- Categories CDK Listbox -->
+          <!-- Categories Checkbox List -->
           <div class="form-group">
             <label>Categories <span class="req">*</span></label>
-            <ul cdkListbox [cdkListboxMultiple]="true"
-                [cdkListboxValue]="formData.categoryIds"
-                (cdkListboxValueChange)="onCategorySelectionChange($event)"
-                class="cdk-listbox">
-              <li *ngFor="let c of categories" [cdkOption]="c.id" class="cdk-option">
-                <i class="fas fa-check check-icon"></i> {{ c.name }}
-              </li>
-              <li *ngIf="categories.length === 0" class="cdk-empty">No categories yet.</li>
-            </ul>
+            <div class="multi-select-list">
+              <label *ngFor="let c of categories" class="checkbox-item">
+                <input type="checkbox" [checked]="formData.categoryIds.includes(c.id)"
+                       (change)="onCategoryCheckboxChange(c.id, $event)">
+                {{ c.name }}
+              </label>
+              <span *ngIf="categories.length === 0" class="no-options">No categories yet.</span>
+            </div>
             <p *ngIf="formData.categoryIds.length === 0" class="field-hint req-hint">Select at least one category</p>
             <button type="button" class="btn btn-ghost btn-sm" style="margin-top:8px" (click)="toggleCategoryForm()">
               <i class="fas" [class.fa-plus]="!showCategoryForm" [class.fa-times]="showCategoryForm"></i>
