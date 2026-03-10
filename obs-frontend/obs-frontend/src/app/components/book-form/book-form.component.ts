@@ -74,6 +74,14 @@ export class BookFormComponent implements OnInit {
     }
   }
 
+  onPriceInput(event: Event): void {
+    this.formData.price = parseFloat((event.target as HTMLInputElement).value) || 0;
+  }
+
+  onStockInput(event: Event): void {
+    this.formData.stock = parseInt((event.target as HTMLInputElement).value) || 0;
+  }
+
   onAuthorSelectionChange(event: { value: readonly number[] }): void {
     this.formData.authorIds = Array.from(event.value);
   }
@@ -119,7 +127,7 @@ export class BookFormComponent implements OnInit {
     return !!(
       this.formData.title.trim() &&
       this.formData.isbn.trim() &&
-      this.formData.price > 0 &&
+      Number(this.formData.price) > 0 &&
       this.formData.authorIds.length > 0 &&
       this.formData.categoryIds.length > 0 &&
       this.formData.stock >= 0

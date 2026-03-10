@@ -41,14 +41,16 @@
             <div class="input-prefix">
               <span class="prefix">$</span>
               <input id="price" name="price" type="number" min="0" step="0.01"
-                [(ngModel)]="formData.price" required placeholder="0.00" class="form-control">
+                [(ngModel)]="formData.price" (input)="onPriceInput($event)"
+                required placeholder="0.00" class="form-control">
             </div>
           </div>
 
           <div class="form-group">
             <label for="stock">Stock <span class="req">*</span></label>
             <input id="stock" name="stock" type="number" min="0"
-              [(ngModel)]="formData.stock" required placeholder="0" class="form-control">
+              [(ngModel)]="formData.stock" (input)="onStockInput($event)"
+              required placeholder="0" class="form-control">
           </div>
 
           <div class="form-group">
