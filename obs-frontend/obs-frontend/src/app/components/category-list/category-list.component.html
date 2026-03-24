@@ -1,0 +1,39 @@
+<div class="page container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title"><i class="fas fa-tag"></i> Categories</h1>
+      <p class="page-subtitle">All book categories in the store</p>
+    </div>
+    <a routerLink="/categories/new" class="btn btn-primary">
+      <i class="fas fa-plus"></i> Add Category
+    </a>
+  </div>
+
+  <div *ngIf="categories.length === 0" class="empty-state">
+    <i class="fas fa-tag"></i>
+    <p>No categories yet. Add the first one!</p>
+    <a routerLink="/categories/new" class="btn btn-primary">Add Category</a>
+  </div>
+
+  <div *ngIf="categories.length > 0" class="categories-grid">
+    <div *ngFor="let c of categories" class="category-card">
+      <div class="category-avatar">
+        <i class="fas fa-tag"></i>
+      </div>
+      <div class="category-body">
+        <div class="category-info">
+          <h3 class="category-name">{{ c.name }}</h3>
+          <p class="category-desc">{{ c.description || 'No description available.' }}</p>
+        </div>
+        <div class="card-actions">
+          <a [routerLink]="['/categories/edit', c.id]" class="btn btn-ghost btn-sm">
+            <i class="fas fa-edit"></i> Edit
+          </a>
+          <button class="btn btn-danger btn-sm" (click)="deleteCategory(c.id)">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

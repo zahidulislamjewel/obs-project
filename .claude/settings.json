@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/.claude/skills/new-feature-branch/**)",
+      "Edit(/.claude/skills/add-api-endpoint/**)",
+      "Edit(/.claude/skills/add-angular-feature/**)",
+      "Edit(/.claude/skills/sqa-agent/**)"
+    ],
+    "additionalDirectories": [
+      "/home/jewel/Desktop/obs/obs-project/.claude/skills"
+    ]
+  }
+}

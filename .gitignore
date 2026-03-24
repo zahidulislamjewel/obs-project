@@ -1,0 +1,12 @@
+# Maven build output
+obs-backend/target/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# VS Code
+**/.vscode/
